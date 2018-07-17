@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '192.168.0.43',
-	'username' => 'allusers',
+	'hostname' => 'localhost',
+	'username' => 'root',
 	'password' => '6789012345',
-	'database' => 'simrs',
+	'database' => 'simrs_paskon',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
