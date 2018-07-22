@@ -42,10 +42,10 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="pages/widgets/cards/basic.html">Baru</a>
+                                <a href="<?php echo base_url();?>pasien/create/">Baru</a>
                             </li>
                             <li>
-                                <a href="pages/widgets/cards/basic.html">Lanjutan</a>
+                                <a href="<?php echo base_url();?>pasien/index">Daftar Pasien</a>
                             </li>
                         </ul>
                     </li>
@@ -70,7 +70,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="pages/helper-classes.html">
+                        <a href="<?php echo base_url();?>report">
                             <i class="material-icons">layers</i>
                             <span>Report</span>
                         </a>

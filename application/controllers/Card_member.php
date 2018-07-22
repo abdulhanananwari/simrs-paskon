@@ -40,7 +40,7 @@ class Card_member extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $this->load->view('card_member/card_member_list', $data);
+        $this->template->load('card_member/card_member_list', $data);
     }
 
     public function read($id) 
@@ -53,7 +53,7 @@ class Card_member extends CI_Controller
 		'type' => $row->type,
 		'created_at' => $row->created_at,
 	    );
-            $this->load->view('card_member/card_member_read', $data);
+            $this->template->load('card_member/card_member_read', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('card_member'));
@@ -70,7 +70,7 @@ class Card_member extends CI_Controller
 	    'type' => set_value('type'),
 	    'created_at' => set_value('created_at'),
 	);
-        $this->load->view('card_member/card_member_form', $data);
+        $this->template->load('card_member/card_member_form', $data);
     }
     
     public function create_action() 
@@ -105,7 +105,7 @@ class Card_member extends CI_Controller
 		'type' => set_value('type', $row->type),
 		'created_at' => set_value('created_at', $row->created_at),
 	    );
-            $this->load->view('card_member/card_member_form', $data);
+            $this->template->load('card_member/card_member_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('card_member'));

@@ -40,7 +40,7 @@ class Pasien extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $this->load->view('pasien/pasien_list', $data);
+        $this->template->load('template','pasien/pasien_list', $data);
     }
 
     public function read($id) 
@@ -69,7 +69,7 @@ class Pasien extends CI_Controller
 		'dokter_id' => $row->dokter_id,
 		'diagnosis' => $row->diagnosis,
 	    );
-            $this->load->view('pasien/pasien_read', $data);
+            $this->template->load('template','pasien/pasien_read', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('pasien'));
@@ -102,7 +102,7 @@ class Pasien extends CI_Controller
 	    'dokter_id' => set_value('dokter_id'),
 	    'diagnosis' => set_value('diagnosis'),
 	);
-        $this->load->view('pasien/pasien_form', $data);
+        $this->template->load('template','pasien/pasien_form', $data);
     }
     
     public function create_action() 
@@ -169,7 +169,7 @@ class Pasien extends CI_Controller
 		'dokter_id' => set_value('dokter_id', $row->dokter_id),
 		'diagnosis' => set_value('diagnosis', $row->diagnosis),
 	    );
-            $this->load->view('pasien/pasien_form', $data);
+            $this->template->load('pasien/pasien_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('pasien'));
