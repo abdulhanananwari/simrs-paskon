@@ -24,13 +24,13 @@
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="active">
-                        <a href="index.html">
+                        <a href="<?php echo base_url();?>dashboard">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
                     </li>
                     <li>
-                        <a href="pages/helper-classes.html">
+                        <a href="<?php echo base_url();?>dokter/index">
                             <i class="material-icons">layers</i>
                             <span>Dokter</span>
                         </a>
@@ -51,21 +51,35 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>Pendaftaran Pasien</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="<?php echo base_url();?>dokter/create/">Baru</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url();?>dokter/index">Daftar dokter</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">assignment</i>
                             <span>Setting</span>
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="pages/forms/basic-form-elements.html">Kategori Pasien</a>
+                                <a href="<?php echo base_url()?>category/index">Kategori Pasien</a>
                             </li>
                             <li>
-                                <a href="pages/forms/advanced-form-elements.html">Kartu </a>
+                                <a href="<?php echo base_url()?>card_member/index">Kartu </a>
                             </li>
                             <li>
                                 <a href="pages/forms/form-examples.html">Jadwal dokter</a>
                             </li>
                             <li>
-                                <a href="pages/forms/form-validation.html">ruangan</a>
+                                <a href="<?php echo base_url()?>ruangan/index">ruangan</a>
                             </li>
                         </ul>
                     </li>

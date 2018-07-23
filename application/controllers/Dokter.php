@@ -40,7 +40,7 @@ class Dokter extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $this->template->load('dokter/dokter_list', $data);
+        $this->template->load('template','dokter/dokter_list', $data);
     }
 
     public function read($id) 
@@ -55,7 +55,7 @@ class Dokter extends CI_Controller
 		'image' => $row->image,
 		'created_at' => $row->created_at,
 	    );
-            $this->template->load('dokter/dokter_read', $data);
+            $this->template->load('template','dokter/dokter_read', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('dokter'));
@@ -74,7 +74,7 @@ class Dokter extends CI_Controller
 	    'image' => set_value('image'),
 	    'created_at' => set_value('created_at'),
 	);
-        $this->template->load('dokter/dokter_form', $data);
+        $this->template->load('template','dokter/dokter_form', $data);
     }
     
     public function create_action() 
@@ -113,7 +113,7 @@ class Dokter extends CI_Controller
 		'image' => set_value('image', $row->image),
 		'created_at' => set_value('created_at', $row->created_at),
 	    );
-            $this->template->load('dokter/dokter_form', $data);
+            $this->template->load('template','dokter/dokter_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('dokter'));

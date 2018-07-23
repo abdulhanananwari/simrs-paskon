@@ -3,9 +3,10 @@
     <div class="container-fluid">
         <h2 style="margin-top:0px">Pasien <?php echo $button ?></h2>
         <form action="<?php echo $action; ?>" method="post">
+        
 	    <div class="form-group">
-            <label for="varchar">Name <?php echo form_error('name') ?></label>
-            <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="<?php echo $name; ?>" />
+            <label for="formGroupExampleInput" class="bmd-label-floating">Name <?php echo form_error('name') ?></label>
+            <input type="text" class="form-control" name="name" id="formGroupExampleInput" placeholder="Name" value="<?php echo $name; ?>" />
         </div>
 	    <div class="form-group">
             <label for="longtext">Address <?php echo form_error('address') ?></label>
