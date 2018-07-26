@@ -100,7 +100,10 @@ function delete_category(id){
                     </div>
                     <div class="help-block with-errors"></div>
                       <label class="control-label" for="type">Type</label>
-
+                      <select class="form-control">
+                          <option></option>
+                          <option>m</option>
+                      </select>
                     <div class="help-block with-errors"></div>
                 </div>
                 
