@@ -9,6 +9,7 @@
                         </div>
                         <div class="body">
                         <h2 class="card-inside-title">Identitas Pasien</h4>
+                            <hr>
                             <form action="<?php echo base_url()?>" method="post">
                                  <div class="row clearfix">
                                     <div class="col-sm-6">
@@ -36,7 +37,7 @@
                                         </div>
                                         <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="datepicker form-control" placeholder="Please choose a date...">
+                                            <input type="text" id="datepicker" class="form-control" placeholder="Please choose a date...">
                                         </div>
                                     </div>
                                     </div>
@@ -49,3 +50,11 @@
         </div>
     </section>
 </div>
+
+<script type="text/javascript">
+    $( function() {
+    $( "#datepicker" ).datepicker({
+            dateFormat: "yy-mm-dd",
+        });
+  } );
+</script>

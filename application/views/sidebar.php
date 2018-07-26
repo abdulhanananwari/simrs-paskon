@@ -2,7 +2,7 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="images/user.png" width="48" height="48" alt="User" />
+                    <i class="material-icons">face</i>
                 </div>
                 <div class="info-container">
                     <h3><p id="time"></p></h3>
@@ -30,14 +30,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url();?>dokter/index">
-                            <i class="material-icons">layers</i>
-                            <span>Dokter</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">widgets</i>
+                            <i class="material-icons">layers</i>
                             <span>Pendaftaran Pasien</span>
                         </a>
                         <ul class="ml-menu">
@@ -51,8 +45,8 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">widgets</i>
-                            <span>Pendaftaran Pasien</span>
+                            <i class="material-icons">face</i>
+                            <span>Dokter</span>
                         </a>
                         <ul class="ml-menu">
                             <li>
@@ -65,7 +59,7 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">assignment</i>
+                            <i class="material-icons">settings</i>
                             <span>Setting</span>
                         </a>
                         <ul class="ml-menu">
