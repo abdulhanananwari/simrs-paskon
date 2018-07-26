@@ -42,6 +42,34 @@ class Category extends CI_Controller
         );
         $this->template->load('template','category/category_list', $data);
     }
+    public function list()
+    {
+       $this->load->database();
+       if(!empty($this->input->get("search"))){
+          $this->db->like('name', $this->input->get("search"));
+       }
+    
+       $json = array();
+       foreach ($this->db->get("category")->result() as $p) {
+
+
+            $row = array();
+            $row[] = $p->id;                    
+            $row[] = $p->name;
+            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_category('."'".$p->id."'".')"><i class="material-icons">edit</i></a>
+            <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_category('."'".$p->id."'".')"><i class="material-icons">delete_forever</i></a>';
+            
+            $json[] = $row;
+       }                   
+       $data['aaData'] = $json;
+       $data['success'] = true;
+       
+       echo json_encode($data);
+    }
+    public function get($id){
+        $query = $this->Category_model->get_by_id($id);
+        echo json_encode($query);
+    }
 
     public function read($id) 
     {

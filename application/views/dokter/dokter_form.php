@@ -3,10 +3,10 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                <h2 style="margin-top:0px">Dokter <?php echo $button ?></h2>
+                <h2 style="margin-top:0px">Dokter Baru</h2>
                     <form action="<?php echo $action; ?>" method="post">
                     <div class="form-group">
-                        <label for="varchar">Name <?php echo form_error('name') ?></label>
+                        <label for="varchar">Nama <?php echo form_error('name') ?></label>
                         <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="<?php echo $name; ?>" />
                     </div>
                     <div class="form-group">
@@ -18,12 +18,8 @@
                         <input type="text" class="form-control" name="active" id="active" placeholder="Active" value="<?php echo $active; ?>" />
                     </div>
                     <div class="form-group">
-                        <label for="varchar">Image <?php echo form_error('image') ?></label>
-                        <input type="text" class="form-control" name="image" id="image" placeholder="Image" value="<?php echo $image; ?>" />
-                    </div>
-                    <div class="form-group">
-                        <label for="date">Created At <?php echo form_error('created_at') ?></label>
-                        <input type="text" class="form-control" name="created_at" id="created_at" placeholder="Created At" value="<?php echo $created_at; ?>" />
+                        <label for="varchar">Foto <?php echo form_error('image') ?></label>
+                        <input type="file" class="form-control" name="image" id="image" placeholder="Image" value="<?php echo $image; ?>" />
                     </div>
                     <input type="hidden" name="id" value="<?php echo $id; ?>" /> 
                     <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 

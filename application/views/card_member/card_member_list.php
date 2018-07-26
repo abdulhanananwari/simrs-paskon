@@ -1,79 +1,145 @@
-<div class="content-wrapper">
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12">
-                <h2 style="margin-top:0px">Card_member List</h2>
-        <div class="row" style="margin-bottom: 10px">
-            <div class="col-md-4">
-                <?php echo anchor(site_url('card_member/create'),'Create', 'class="btn btn-primary"'); ?>
-            </div>
-            <div class="col-md-4 text-center">
-                <div style="margin-top: 8px" id="message">
-                    <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
-                </div>
-            </div>
-            <div class="col-md-1 text-right">
-            </div>
-            <div class="col-md-3 text-right">
-                <form action="<?php echo site_url('card_member/index'); ?>" class="form-inline" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
-                        <span class="input-group-btn">
-                            <?php 
-                                if ($q <> '')
-                                {
-                                    ?>
-                                    <a href="<?php echo site_url('card_member'); ?>" class="btn btn-default">Reset</a>
-                                    <?php
-                                }
-                            ?>
-                          <button class="btn btn-primary" type="submit">Search</button>
-                        </span>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <table class="table table-bordered" style="margin-bottom: 10px">
-            <tr>
-                <th>No</th>
-		<th>Name</th>
-		<th>Type</th>
-		<th>Created At</th>
-		<th>Action</th>
-            </tr><?php
-            foreach ($card_member_data as $card_member)
+
+<div class="container">
+<section class="content">
+<button class="btn btn-secondary btn-sm btn-block" data-toggle="modal" data-target="#create-item" >Tambah Jenis Kartu</button>
+    <br>
+    <div class="table-responsive">
+      <table id="table" class="table table-bordered table-striped table-hover js-basic-example dataTable" style="width:100%">
+          <thead>
+              <th>Id</th>
+              <th>Nama</th>
+              <th>Action</th>
+          </thead>
+          <tbody>
+          </tbody>
+      </table>
+    </div>
+</section>
+</div>
+   <script src="/assets/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="/assets/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="/assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="/assets/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="/assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src=/assets/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="/assets/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="/assets/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="/assets/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="/assets/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="/assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="/assets/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+ <script src="/assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+      $("#table").DataTable({
+          "bProcessing": true,
+          "sAjaxSource": "<?php echo base_url();?>category/list",
+        });  
+
+   $("#reset").click(function() {
+        $(':input','#kategori').val("");
+    });
+});
+function edit_category(id){
+    $.ajax({
+        url : "<?php echo base_url('category/get')?>/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            var url = "<?php echo base_url();?>category/update_action/"
+            $('[name="id"]').val(data.id);
+            $('[name="name"]').val(data.name);
+            $('#edit-category').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Edit Kategori ' + '(' + data.id + ')'); // Set title to Bootstrap modal title
+            $("#edit-category").find('form').attr('action',url + data.id);
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+function delete_category(id){
+    if(confirm('Yakin mau hapus produk ini?')){
+        // ajax delete data to database
+        $.ajax({
+            url : "<?php echo base_url()?>category/delete/"+id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
             {
-                ?>
-                <tr>
-			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $card_member->name ?></td>
-			<td><?php echo $card_member->type ?></td>
-			<td><?php echo $card_member->created_at ?></td>
-			<td style="text-align:center" width="200px">
-				<?php 
-				echo anchor(site_url('card_member/read/'.$card_member->id),'Read'); 
-				echo ' | '; 
-				echo anchor(site_url('card_member/update/'.$card_member->id),'Update'); 
-				echo ' | '; 
-				echo anchor(site_url('card_member/delete/'.$card_member->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
-				?>
-			</td>
-		</tr>
-                <?php
+                toastr.success('Kategori Berhasil Dihapus',{timeOut: 1000});
+                window.location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
             }
-            ?>
-        </table>
-        <div class="row">
-            <div class="col-md-6">
-                <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
-	    </div>
-            <div class="col-md-6 text-right">
-                <?php echo $pagination ?>
-            </div>
+        });
+ 
+    }
+}
+</script>
+<div class="modal fade bd-example-modal-lg"  id="create-item" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Tambah Kartu</h5>
+            <button type="button" id="reset" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
         </div>
+        <div class="modal-body">
+            <form data-toggle="validator" id="kategori" action="<?php echo base_url();?>card_member/create_action" method="POST">
+                <div class="form-group">
+                    <label class="control-label" for="name">Nama Kartu</label>
+                    <div class="form-line">
+                        <input type="text" id="name" name="name" class="form-control" data-error="Nama Harap Diisi" required />
+                    </div>
+                    <div class="help-block with-errors"></div>
+                      <label class="control-label" for="type">Type</label>
+
+                    <div class="help-block with-errors"></div>
                 </div>
-            </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn crud-submit btn-success">Submit</button>
+                </div>
+            </form>
         </div>
-    </section>
+    </div>
+  </div>
+</div>
+<div class="modal fade bd-example-modal-lg"  id="edit-category" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form data-toggle="validator" id="kategori" action="" method="POST">
+                <div class="form-group">
+                    <label class="control-label" for="name">Nama Kategori</label>
+                    <input type="text" id="name" name="name" class="form-control" data-error="Nama Harap Diisi" required />
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn crud-submit btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
 </div>

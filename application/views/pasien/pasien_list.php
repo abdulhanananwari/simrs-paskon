@@ -1,108 +1,51 @@
-<div class="content-wrapper">
+<div class="contanier">
     <section class="content">
-    <div class="container-fluid">
-        <h2 style="margin-top:0px">Pasien List</h2>
-        <div class="row" style="margin-bottom: 10px">
-            <div class="col-md-4">
-                <?php echo anchor(site_url('pasien/create'),'Create', 'class="btn btn-primary"'); ?>
-            </div>
-            <div class="col-md-4 text-center">
-                <div style="margin-top: 8px" id="message">
-                    <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+        <div class="contanier-fluid">
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Form Pendaftaran Pasien</h2>
+                        </div>
+                        <div class="body">
+                        <h2 class="card-inside-title">Identitas Pasien</h4>
+                            <form action="<?php echo base_url()?>" method="post">
+                                 <div class="row clearfix">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>No KTP</label>
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" placeholder="No KTP" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>No KK</label>
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" placeholder="No KK" />
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Nama</label>
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" placeholder="Nama" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="datepicker form-control" placeholder="Please choose a date...">
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </form>                          
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-1 text-right">
-            </div>
-            <div class="col-md-3 text-right">
-                <form action="<?php echo site_url('pasien/index'); ?>" class="form-inline" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
-                        <span class="input-group-btn">
-                            <?php 
-                                if ($q <> '')
-                                {
-                                    ?>
-                                    <a href="<?php echo site_url('pasien'); ?>" class="btn btn-default">Reset</a>
-                                    <?php
-                                }
-                            ?>
-                          <button class="btn btn-primary" type="submit">Search</button>
-                        </span>
-                    </div>
-                </form>
-            </div>
         </div>
-        <table class="table table-bordered" style="margin-bottom: 10px">
-            <tr>
-                <th>No</th>
-		<th>Name</th>
-		<th>Address</th>
-		<th>Dob</th>
-		<th>Place Dob</th>
-		<th>Email</th>
-		<th>Phone Number</th>
-		<th>Image</th>
-		<th>Pasien Type</th>
-		<th>Card Member Id</th>
-		<th>Rm Number</th>
-		<th>Gender</th>
-		<th>Religion</th>
-		<th>Profession</th>
-		<th>Card Type</th>
-		<th>Complaint</th>
-		<th>Exp Card Member</th>
-		<th>Created At</th>
-		<th>Dokter Id</th>
-		<th>Diagnosis</th>
-		<th>Action</th>
-            </tr><?php
-            foreach ($pasien_data as $pasien)
-            {
-                ?>
-                <tr>
-			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $pasien->name ?></td>
-			<td><?php echo $pasien->address ?></td>
-			<td><?php echo $pasien->dob ?></td>
-			<td><?php echo $pasien->place_dob ?></td>
-			<td><?php echo $pasien->email ?></td>
-			<td><?php echo $pasien->phone_number ?></td>
-			<td><?php echo $pasien->image ?></td>
-			<td><?php echo $pasien->pasien_type ?></td>
-			<td><?php echo $pasien->card_member_id ?></td>
-			<td><?php echo $pasien->rm_number ?></td>
-			<td><?php echo $pasien->gender ?></td>
-			<td><?php echo $pasien->religion ?></td>
-			<td><?php echo $pasien->profession ?></td>
-			<td><?php echo $pasien->card_type ?></td>
-			<td><?php echo $pasien->complaint ?></td>
-			<td><?php echo $pasien->exp_card_member ?></td>
-			<td><?php echo $pasien->created_at ?></td>
-			<td><?php echo $pasien->dokter_id ?></td>
-			<td><?php echo $pasien->diagnosis ?></td>
-			<td style="text-align:center" width="200px">
-				<?php 
-				echo anchor(site_url('pasien/read/'.$pasien->id),'Read'); 
-				echo ' | '; 
-				echo anchor(site_url('pasien/update/'.$pasien->id),'Update'); 
-				echo ' | '; 
-				echo anchor(site_url('pasien/delete/'.$pasien->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
-				?>
-			</td>
-		</tr>
-                <?php
-            }
-            ?>
-        </table>
-        <div class="row">
-            <div class="col-md-6">
-                <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
-		<?php echo anchor(site_url('pasien/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-	    </div>
-            <div class="col-md-6 text-right">
-                <?php echo $pagination ?>
-            </div>
-        </div>
-        </div>
-        </section>
-        </div>
+    </section>
+</div>

@@ -14,13 +14,21 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="/assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-    <!-- Waves Effect Css -->
+    <link href="/assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <!-- Waves Effect Css -->
     <link href="/assets/plugins/node-waves/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
     <link href="/assets/plugins/animate-css/animate.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap-select/css/bootstrap-select.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+    <link href="<?php echo base_url();?>assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+
+
 
     <!-- Morris Chart Css-->
     <link href="/assets/plugins/morrisjs/morris.css" rel="stylesheet" />
@@ -182,11 +190,21 @@
 
     <!-- Jquery Core Js -->
     <script src="/assets/plugins/jquery/jquery.min.js"></script>
-
+    <script src="/assets/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="/assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src=/assets/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="/assets/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="/assets/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="/assets/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="/assets/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="/assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="/assets/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+    <!-- <script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
     <!-- Bootstrap Core Js -->
     <script src="/assets/plugins/bootstrap/js/bootstrap.js"></script>
 
     <!-- Select Plugin Js -->
+
     <script src="/assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
     <!-- Slimscroll Plugin Js -->
@@ -205,19 +223,18 @@
     <!-- ChartJs -->
     <script src="/assets/plugins/chartjs/Chart.bundle.js"></script>
 
-    <!-- Flot Charts Plugin Js -->
-    <script src="/assets/plugins/flot-charts/jquery.flot.js"></script>
-    <script src="/assets/plugins/flot-charts/jquery.flot.resize.js"></script>
-    <script src="/assets/plugins/flot-charts/jquery.flot.pie.js"></script>
-    <script src="/assets/plugins/flot-charts/jquery.flot.categories.js"></script>
-    <script src="/assets/plugins/flot-charts/jquery.flot.time.js"></script>
-
+   
     <!-- Sparkline Chart Plugin Js -->
     <script src="/assets/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+
+    <script type="text/javascript" src="/assets/plugins/momentjs/moment.js"></script>
+
+    <script type="text/javascript" src="/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
     <!-- Custom Js -->
     <script src="/assets/js/admin.js"></script>
     <script src="/assets/js/pages/index.js"></script>
+    <script src="/assets/js/pages/tables/jquery-datatable.js"></script>
 
     <!-- Demo Js -->
     <script src="/assets/js/demo.js"></script>
