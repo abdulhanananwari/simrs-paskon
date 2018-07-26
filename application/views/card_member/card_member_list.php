@@ -105,7 +105,7 @@ function delete_category(id){
                           <option>m</option>
                       </select>
                     <div class="help-block with-errors"></div>
-                </div>
+                   
                 
                 <div class="form-group">
                     <button type="submit" class="btn crud-submit btn-success">Submit</button>
