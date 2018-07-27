@@ -12,36 +12,18 @@ class Category extends CI_Controller
         $this->load->library('form_validation');
     }
 
-    public function index()
-    {
-        $q = urldecode($this->input->get('q', TRUE));
-        $start = intval($this->input->get('start'));
-        
-        if ($q <> '') {
-            $config['base_url'] = base_url() . 'category/index.html?q=' . urlencode($q);
-            $config['first_url'] = base_url() . 'category/index.html?q=' . urlencode($q);
-        } else {
-            $config['base_url'] = base_url() . 'category/index.html';
-            $config['first_url'] = base_url() . 'category/index.html';
-        }
+    public function index() {
+        $this->isLogin();
+       
+	}
+	public function isLogin(){
+		if($this->session->userdata('login') == TRUE){
+			$this->template->load('template', 'category/category_list');
+		}else {
+			redirect('login');
+		}
 
-        $config['per_page'] = 10;
-        $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->Category_model->total_rows($q);
-        $category = $this->Category_model->get_limit_data($config['per_page'], $start, $q);
-
-        $this->load->library('pagination');
-        $this->pagination->initialize($config);
-
-        $data = array(
-            'category_data' => $category,
-            'q' => $q,
-            'pagination' => $this->pagination->create_links(),
-            'total_rows' => $config['total_rows'],
-            'start' => $start,
-        );
-        $this->template->load('template','category/category_list', $data);
-    }
+	}
     public function list()
     {
        $this->load->database();

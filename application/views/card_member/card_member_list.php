@@ -1,4 +1,4 @@
-
+<link href="/assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
 <div class="container">
 <section class="content">
 <button class="btn btn-secondary btn-sm btn-block" data-toggle="modal" data-target="#create-item" >Tambah Jenis Kartu</button>
@@ -8,6 +8,7 @@
           <thead>
               <th>Id</th>
               <th>Nama</th>
+              <th>Type</th>
               <th>Action</th>
           </thead>
           <tbody>
@@ -27,32 +28,33 @@
 <script src="/assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
 <script src="/assets/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
 <script type="text/javascript">
+
 $(document).ready(function(){
 
       $("#table").DataTable({
           "bProcessing": true,
-          "sAjaxSource": "<?php echo base_url();?>category/list",
+          "sAjaxSource": "<?php echo base_url();?>card_member/list",
         });  
-
-        $addPanel = $("div#create-item");
-        $addPanel.modal("show");
 
    $("#reset").click(function() {
         $(':input','#kategori').val("");
     });
+    
+
 });
 function edit_category(id){
     $.ajax({
-        url : "<?php echo base_url('category/get')?>/" + id,
+        url : "<?php echo base_url('card_member/get')?>/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
-            var url = "<?php echo base_url();?>category/update_action/"
+            var url = "<?php echo base_url();?>card_member/update_action/"
             $('[name="id"]').val(data.id);
             $('[name="name"]').val(data.name);
+            $('[name="type"]').val(data.type);
             $('#edit-category').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Kategori ' + '(' + data.id + ')'); // Set title to Bootstrap modal title
+            $('.modal-title').text('Edit Data ' + '(' + data.id + ')'); // Set title to Bootstrap modal title
             $("#edit-category").find('form').attr('action',url + data.id);
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -65,7 +67,7 @@ function delete_category(id){
     if(confirm('Yakin mau hapus produk ini?')){
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo base_url()?>category/delete/"+id,
+            url : "<?php echo base_url()?>card_member/delete/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data)
@@ -86,7 +88,7 @@ function delete_category(id){
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Tambah Kartu</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori</h5>
             <button type="button" id="reset" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -94,19 +96,21 @@ function delete_category(id){
         <div class="modal-body">
             <form data-toggle="validator" id="kategori" action="<?php echo base_url();?>card_member/create_action" method="POST">
                 <div class="form-group">
-                    <label class="control-label" for="name">Nama Kartu</label>
+                    <label class="control-label" for="name">Nama</label>
                     <div class="form-line">
                         <input type="text" id="name" name="name" class="form-control" data-error="Nama Harap Diisi" required />
                     </div>
                     <div class="help-block with-errors"></div>
-                      <label class="control-label" for="type">Type</label>
-                      <select class="form-control">
-                          <option></option>
-                          <option>m</option>
-                      </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="name">Type</label>
+                    <select name="type" id="type" class="form-control">
+                        <option value="0"></option>
+                        <option value="asuransi">Asuransi</option>
+                        <option value="bpjs">BPJS</option>
+                    </select>
                     <div class="help-block with-errors"></div>
-                   
-                
+                </div>
                 <div class="form-group">
                     <button type="submit" class="btn crud-submit btn-success">Submit</button>
                 </div>
@@ -127,8 +131,17 @@ function delete_category(id){
         <div class="modal-body">
             <form data-toggle="validator" id="kategori" action="" method="POST">
                 <div class="form-group">
-                    <label class="control-label" for="name">Nama Kategori</label>
+                    <label class="control-label" for="name">Nama </label>
                     <input type="text" id="name" name="name" class="form-control" data-error="Nama Harap Diisi" required />
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="name">Type</label>
+                    <select name="type" id="type" class="form-control">
+                        <option value="0"></option>
+                        <option value="asuransi">Asuransi</option>
+                        <option value="bpjs">BPJS</option>
+                    </select>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">

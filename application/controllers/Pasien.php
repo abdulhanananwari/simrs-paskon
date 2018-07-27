@@ -11,38 +11,18 @@ class Pasien extends CI_Controller
         $this->load->model('Pasien_model');
         $this->load->library('form_validation');
     }
+	public function index() {
+        $this->isLogin();
+       
+	}
+	public function isLogin(){
+		if($this->session->userdata('login') == TRUE){
+			$this->template->load('template', 'pasien/pasien_list');
+		}else {
+			redirect('login');
+		}
 
-    public function index()
-    {
-        $q = urldecode($this->input->get('q', TRUE));
-        $start = intval($this->input->get('start'));
-        
-        if ($q <> '') {
-            $config['base_url'] = base_url() . 'pasien/index.html?q=' . urlencode($q);
-            $config['first_url'] = base_url() . 'pasien/index.html?q=' . urlencode($q);
-        } else {
-            $config['base_url'] = base_url() . 'pasien/index.html';
-            $config['first_url'] = base_url() . 'pasien/index.html';
-        }
-
-        $config['per_page'] = 10;
-        $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->Pasien_model->total_rows($q);
-        $pasien = $this->Pasien_model->get_limit_data($config['per_page'], $start, $q);
-
-        $this->load->library('pagination');
-        $this->pagination->initialize($config);
-
-        $data = array(
-            'pasien_data' => $pasien,
-            'q' => $q,
-            'pagination' => $this->pagination->create_links(),
-            'total_rows' => $config['total_rows'],
-            'start' => $start,
-        );
-        $this->template->load('template','pasien/pasien_list', $data);
-    }
-
+	}
     public function read($id) 
     {
         $row = $this->Pasien_model->get_by_id($id);

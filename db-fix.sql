@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.21, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: simrs_paskon
+-- Host: 192.168.0.43    Database: simrs_paskon
 -- ------------------------------------------------------
--- Server version	5.7.21-0ubuntu0.16.04.1
+-- Server version	5.7.22-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,7 +28,7 @@ CREATE TABLE `card_member` (
   `type` varchar(45) DEFAULT NULL,
   `created_at` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +37,7 @@ CREATE TABLE `card_member` (
 
 LOCK TABLES `card_member` WRITE;
 /*!40000 ALTER TABLE `card_member` DISABLE KEYS */;
+INSERT INTO `card_member` VALUES (1,'sdsd',NULL,'2018-07-27 03:32:24');
 /*!40000 ALTER TABLE `card_member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,7 +52,7 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,7 +61,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'bpjs');
+INSERT INTO `category` VALUES (1,'bpjs'),(2,'melati');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,8 +85,10 @@ CREATE TABLE `dokter` (
   `mobile_number` varchar(45) DEFAULT NULL,
   `dokter_registration_code` varchar(45) DEFAULT NULL,
   `dob` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `place_dob` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +97,7 @@ CREATE TABLE `dokter` (
 
 LOCK TABLES `dokter` WRITE;
 /*!40000 ALTER TABLE `dokter` DISABLE KEYS */;
-INSERT INTO `dokter` VALUES (2,'jj','jh',NULL,'Screenshot from 2018-04-18 22-50-18.png',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'kljlkj','kljklj',NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-26',NULL,NULL,NULL,NULL,NULL,NULL),(4,'r','e',NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-26',NULL,NULL,NULL,NULL,NULL,NULL),(5,'jkjlkjlkjlkjlkj',NULL,NULL,NULL,'0000-00-00','',NULL,'','',NULL,''),(6,'jlkjkjkj',NULL,NULL,NULL,'2018-07-27','',NULL,'','',NULL,''),(7,'jlklkjlkjlkjlkj',NULL,NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-27','',NULL,'','',NULL,''),(8,'lkhkhjklh',NULL,NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-27','',NULL,'','',NULL,''),(9,'kjklhlkjkj',NULL,NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-27','',NULL,'','',NULL,'');
+INSERT INTO `dokter` VALUES (2,'jj','jh',NULL,'Screenshot from 2018-04-18 22-50-18.png',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'kljlkj','kljklj',NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-26',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'r','e',NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-26',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,'jkjlkjlkjlkjlkj',NULL,NULL,NULL,'0000-00-00','',NULL,'','',NULL,'',NULL,NULL),(6,'jlkjkjkj',NULL,NULL,NULL,'2018-07-27','',NULL,'','',NULL,'',NULL,NULL),(7,'jlklkjlkjlkjlkj',NULL,NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-27','',NULL,'','',NULL,'',NULL,NULL),(8,'lkhkhjklh',NULL,NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-27','',NULL,'','',NULL,'',NULL,NULL),(9,'kjklhlkjkj',NULL,NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-27','',NULL,'','',NULL,'',NULL,NULL),(10,'abdul hanan aDASD',NULL,NULL,NULL,NULL,'batujajar',NULL,'83817520840','83817520840',NULL,'Tuesday 13 July 1993',NULL,NULL),(11,'abdul hanan aDASD',NULL,NULL,'e8c7c07e94eaacde54e61ca4b78aa51f.PNG','2018-07-27','',NULL,' 83817520840','83817520840','','Tuesday 13 July 1993',NULL,NULL);
 /*!40000 ALTER TABLE `dokter` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,6 +157,7 @@ CREATE TABLE `ruangan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `capacity` varchar(45) DEFAULT NULL,
+  `class` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -190,7 +194,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'abdulhananx42@gmail.com','c44a471bd78cc6c2fea32b9fe028d30a','abdul','hanan'),(2,'wadevsolution@gmail.com','040b7cf4a55014e185813e0644502ea9','akl','klklk');
+INSERT INTO `user` VALUES (1,'babangtamvan@wadev.com','c44a471bd78cc6c2fea32b9fe028d30a','abdul','hanan'),(2,'wadevsolution@gmail.com','040b7cf4a55014e185813e0644502ea9','akl','klklk');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -203,4 +207,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-27  7:04:19
+-- Dump completed on 2018-07-27 11:25:35

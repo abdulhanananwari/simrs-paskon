@@ -19,8 +19,16 @@ class Dashboard extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index() {
-        //$this->load->view('table');
-        $this->template->load('template', 'dashboard');
-    }
+        $this->isLogin();
+       
+	}
+	public function isLogin(){
+		if($this->session->userdata('login') == TRUE){
+			$this->template->load('template', 'dashboard');
+		}else {
+			redirect('login');
+		}
+
+	}
 
 }

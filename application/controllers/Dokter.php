@@ -12,48 +12,37 @@ class Dokter extends CI_Controller
         $this->load->library('form_validation');
     }
 
-    public function index()
-    {
-        $q = urldecode($this->input->get('q', TRUE));
-        $start = intval($this->input->get('start'));
-        
-        if ($q <> '') {
-            $config['base_url'] = base_url() . 'dokter/index.html?q=' . urlencode($q);
-            $config['first_url'] = base_url() . 'dokter/index.html?q=' . urlencode($q);
-        } else {
-            $config['base_url'] = base_url() . 'dokter/index.html';
-            $config['first_url'] = base_url() . 'dokter/index.html';
-        }
+    public function index() {
+        $this->isLogin();
+       
+	}
+	public function isLogin(){
+		if($this->session->userdata('login') == TRUE){
+			$this->template->load('template', 'dokter/dokter_list');
+		}else {
+			redirect('login');
+		}
 
-        $config['per_page'] = 10;
-        $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->Dokter_model->total_rows($q);
-        $dokter = $this->Dokter_model->get_limit_data($config['per_page'], $start, $q);
-
-        $this->load->library('pagination');
-        $this->pagination->initialize($config);
-
-        $data = array(
-            'dokter_data' => $dokter,
-            'q' => $q,
-            'pagination' => $this->pagination->create_links(),
-            'total_rows' => $config['total_rows'],
-            'start' => $start,
-        );
-        $this->template->load('template','dokter/dokter_list', $data);
-    }
+	}
 
     public function read($id) 
     {
         $row = $this->Dokter_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id' => $row->id,
-		'name' => $row->name,
-		'spesialist' => $row->spesialist,
-		'active' => $row->active,
-		'image' => $row->image,
-		'created_at' => $row->created_at,
+                    'id' => $row->id,
+                    'name' => $row->name,
+                    'spesialist' => $row->spesialist,
+                    'image' => $row->image,
+                    'ktp' =>$row->ktp,
+                    'dokter_registration_code'=> $row->dokter_registration_code,
+                    'address' => $row->address,
+                    'phone_number' => $row->phone_number,
+                    'mobile_number' => $row->mobile_number,
+                    'email' => $row->email,
+                    'dob' =>$row->dob,
+                    'place_dob' => $row->place_dob,
+                    'created_at' => $row->created_at,
 	    );
             $this->template->load('template','dokter/dokter_read', $data);
         } else {
@@ -100,13 +89,42 @@ class Dokter extends CI_Controller
                 $upload = $this->upload();
                 $data['image'] = $upload;
             }
-            exit(json_encode($data));
             $this->Dokter_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('dokter'));
         }
     }
+    public function list()
+    {
+       $this->load->database();
+       if(!empty($this->input->get("search"))){
+          $this->db->like('name', $this->input->get("search"));
+       }
     
+       $json = array();
+       foreach ($this->db->get("dokter")->result() as $p) {
+
+
+            $row = array();
+            $row[] = $p->id;                    
+            $row[] = $p->name;
+            $row[] = $p->spesialist;
+            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)"  title="Edit" onclick="edit_category('."'".$p->id."'".')"><i class="material-icons">edit</i></a>
+            <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_category('."'".$p->id."'".')"><i class="material-icons">delete_forever</i></a>';
+            
+            $json[] = $row;
+       }                   
+       $data['aaData'] = $json;
+       $data['success'] = true;
+       
+       echo json_encode($data);
+    }
+    
+    public function get($id){
+        $query = $this->Dokter_model->get_by_id($id);
+        echo json_encode($query);
+    }
+
     public function update($id) 
     {
         $row = $this->Dokter_model->get_by_id($id);
@@ -129,7 +147,7 @@ class Dokter extends CI_Controller
         }
     }
     
-    public function update_action() 
+    public function update_action($id) 
     {
         $this->_rules();
 
@@ -137,14 +155,14 @@ class Dokter extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-		'name' => $this->input->post('name',TRUE),
-		'spesialist' => $this->input->post('spesialist',TRUE),
-		'active' => $this->input->post('active',TRUE),
-		'image' => $this->input->post('image',TRUE),
-		'created_at' => $this->input->post('created_at',TRUE),
-	    );
+                    'name' => $this->input->post('name',TRUE),
+                    'spesialist' => $this->input->post('spesialist',TRUE),
+                    'active' => $this->input->post('active',TRUE),
+                    // 'image' => $this->input->post('image',TRUE),
+                    'created_at' => $this->input->post('created_at',TRUE),
+	            );
 
-            $this->Dokter_model->update($this->input->post('id', TRUE), $data);
+            $this->Dokter_model->update($id, $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('dokter'));
         }

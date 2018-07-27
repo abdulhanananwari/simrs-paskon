@@ -12,36 +12,18 @@ class Card_member extends CI_Controller
         $this->load->library('form_validation');
     }
 
-    public function index()
-    {
-        $q = urldecode($this->input->get('q', TRUE));
-        $start = intval($this->input->get('start'));
-        
-        if ($q <> '') {
-            $config['base_url'] = base_url() . 'card_member/index.html?q=' . urlencode($q);
-            $config['first_url'] = base_url() . 'card_member/index.html?q=' . urlencode($q);
-        } else {
-            $config['base_url'] = base_url() . 'card_member/index.html';
-            $config['first_url'] = base_url() . 'card_member/index.html';
-        }
+    public function index() {
+        $this->isLogin();
+       
+	}
+	public function isLogin(){
+		if($this->session->userdata('login') == TRUE){
+			$this->template->load('template', 'card_member/card_member_list');
+		}else {
+			redirect('login');
+		}
 
-        $config['per_page'] = 10;
-        $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->Card_member_model->total_rows($q);
-        $card_member = $this->Card_member_model->get_limit_data($config['per_page'], $start, $q);
-
-        $this->load->library('pagination');
-        $this->pagination->initialize($config);
-
-        $data = array(
-            'card_member_data' => $card_member,
-            'q' => $q,
-            'pagination' => $this->pagination->create_links(),
-            'total_rows' => $config['total_rows'],
-            'start' => $start,
-        );
-        $this->template->load('template','card_member/card_member_list', $data);
-    }
+	}
 
     public function read($id) 
     {
@@ -59,7 +41,35 @@ class Card_member extends CI_Controller
             redirect(site_url('card_member'));
         }
     }
+    public function get($id){
+        $query = $this->Card_member_model->get_by_id($id);
+        echo json_encode($query);
+    }
+    public function list()
+    {
+       $this->load->database();
+       if(!empty($this->input->get("search"))){
+          $this->db->like('name', $this->input->get("search"));
+       }
+    
+       $json = array();
+       foreach ($this->db->get("card_member")->result() as $p) {
 
+
+            $row = array();
+            $row[] = $p->id;                    
+            $row[] = $p->name;
+            $row[] = $p->type;
+            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_category('."'".$p->id."'".')"><i class="material-icons">edit</i></a>
+            <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_category('."'".$p->id."'".')"><i class="material-icons">delete_forever</i></a>';
+            
+            $json[] = $row;
+       }                   
+       $data['aaData'] = $json;
+       $data['success'] = true;
+       
+       echo json_encode($data);
+    }
     public function create() 
     {
         $data = array(
@@ -81,9 +91,9 @@ class Card_member extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'name' => $this->input->post('name',TRUE),
-		'type' => $this->input->post('type',TRUE),
-		'created_at' => $this->input->post('created_at',TRUE),
+                'name' => $this->input->post('name',TRUE),
+                'type' => $this->input->post('type',TRUE),
+		            'created_at' =>  date('Y-m-d H:i:s')
 	    );
 
             $this->Card_member_model->insert($data);
@@ -148,9 +158,7 @@ class Card_member extends CI_Controller
     public function _rules() 
     {
 	$this->form_validation->set_rules('name', 'name', 'trim|required');
-	$this->form_validation->set_rules('type', 'type', 'trim|required');
-	$this->form_validation->set_rules('created_at', 'created at', 'trim|required');
-
+	
 	$this->form_validation->set_rules('id', 'id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
