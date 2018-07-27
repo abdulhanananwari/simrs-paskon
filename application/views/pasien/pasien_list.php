@@ -6,7 +6,8 @@
           <thead>
               <th>Id</th>
               <th>Nama</th>
-              <th>Spesialis</th>
+              <th>Alamat</th>
+              <th>NO Telephone</th>
               <th>Action</th>
           </thead>
           <tbody>
@@ -31,7 +32,7 @@ $(document).ready(function(){
 
       $("#table").DataTable({
           "bProcessing": true,
-          "sAjaxSource": "<?php echo base_url();?>dokter/list",
+          "sAjaxSource": "<?php echo base_url();?>pasien/list",
         });  
 
    $("#reset").click(function() {
@@ -41,13 +42,13 @@ $(document).ready(function(){
 
 });
 function edit_category(id){
-    window.location.href= "<?php echo base_url()?>dokter/read/" + id
+    window.location.href= "<?php echo base_url()?>pasien/read/" + id
 }
 function delete_category(id){
     if(confirm('Yakin mau hapus produk ini?')){
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo base_url()?>dokter/delete/"+id,
+            url : "<?php echo base_url()?>pasien/delete/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data)

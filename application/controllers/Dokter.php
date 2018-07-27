@@ -9,6 +9,7 @@ class Dokter extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Dokter_model');
+        $this->load->model('Poliklinik_model');
         $this->load->library('form_validation');
     }
 
@@ -62,7 +63,9 @@ class Dokter extends CI_Controller
 	    'active' => set_value('active'),
 	    'image' => set_value('image'),
 	    'created_at' => set_value('created_at'),
-	);
+    );
+        $data['polikliniks'] = $this->Poliklinik_model->get_all();
+        
         $this->template->load('template','dokter/dokter_form', $data);
     }
     

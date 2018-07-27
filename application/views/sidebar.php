@@ -70,7 +70,7 @@
                                 <a href="<?php echo base_url()?>card_member/index">Kartu </a>
                             </li>
                             <li>
-                                <a href="pages/forms/form-examples.html">Jadwal dokter</a>
+                                <a href="<?php echo base_url()?>poliklinik/index">Poliklinik</a>
                             </li>
                             <li>
                                 <a href="<?php echo base_url()?>ruangan/index">ruangan</a>
