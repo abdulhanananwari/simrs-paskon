@@ -112,27 +112,26 @@ class Pasien extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
-            $data = array(
-		'name' => $this->input->post('name',TRUE),
-		'address' => $this->input->post('address',TRUE),
-		'dob' => $this->input->post('dob',TRUE),
-		'place_dob' => $this->input->post('place_dob',TRUE),
-		'email' => $this->input->post('email',TRUE),
-		'phone_number' => $this->input->post('phone_number',TRUE),
-		'image' => $this->input->post('image',TRUE),
-		'pasien_type' => $this->input->post('pasien_type',TRUE),
-		'card_member_id' => $this->input->post('card_member_id',TRUE),
-		'rm_number' => $this->input->post('rm_number',TRUE),
-		'gender' => $this->input->post('gender',TRUE),
-		'religion' => $this->input->post('religion',TRUE),
-		'profession' => $this->input->post('profession',TRUE),
-		'card_type' => $this->input->post('card_type',TRUE),
-		'complaint' => $this->input->post('complaint',TRUE),
-		'exp_card_member' => $this->input->post('exp_card_member',TRUE),
-		'created_at' => $this->input->post('created_at',TRUE),
-		'dokter_id' => $this->input->post('dokter_id',TRUE),
-		'diagnosis' => $this->input->post('diagnosis',TRUE),
-	    );
+            $data = [
+					'name' => $this->input->post('name'),
+					'address' => $this->input->post('address',TRUE),
+					'dob' => $this->input->post('dob',TRUE),
+					'place_dob' => $this->input->post('place_dob',TRUE),
+					'email' => $this->input->post('email',TRUE),
+					'phone_number' => $this->input->post('phone_number',TRUE),
+					'pasien_type' => $this->input->post('pasien_type',TRUE),
+					'card_member_id' => $this->input->post('card_member_id',TRUE),
+					'rm_number' => $this->input->post('rm_number',TRUE),
+					'gender' => $this->input->post('gender',TRUE),
+					'religion' => $this->input->post('religion',TRUE),
+					'profession' => $this->input->post('profession',TRUE),
+					'card_type' => $this->input->post('card_type',TRUE),
+					'complaint' => $this->input->post('complaint',TRUE),
+					'exp_card_member' => $this->input->post('exp_card_member',TRUE),
+					'dokter_id' => $this->input->post('dokter_id',TRUE),
+					'diagnosis' => $this->input->post('diagnosis',TRUE),
+					'created_at' => date('Y-m-d H:i:s')
+			];
 
             $this->Pasien_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
@@ -228,24 +227,24 @@ class Pasien extends CI_Controller
     public function _rules() 
     {
 	$this->form_validation->set_rules('name', 'name', 'trim|required');
-	$this->form_validation->set_rules('address', 'address', 'trim|required');
-	$this->form_validation->set_rules('dob', 'dob', 'trim|required');
-	$this->form_validation->set_rules('place_dob', 'place dob', 'trim|required');
-	$this->form_validation->set_rules('email', 'email', 'trim|required');
-	$this->form_validation->set_rules('phone_number', 'phone number', 'trim|required');
-	$this->form_validation->set_rules('image', 'image', 'trim|required');
-	$this->form_validation->set_rules('pasien_type', 'pasien type', 'trim|required');
-	$this->form_validation->set_rules('card_member_id', 'card member id', 'trim|required');
-	$this->form_validation->set_rules('rm_number', 'rm number', 'trim|required');
-	$this->form_validation->set_rules('gender', 'gender', 'trim|required');
-	$this->form_validation->set_rules('religion', 'religion', 'trim|required');
-	$this->form_validation->set_rules('profession', 'profession', 'trim|required');
-	$this->form_validation->set_rules('card_type', 'card type', 'trim|required');
-	$this->form_validation->set_rules('complaint', 'complaint', 'trim|required');
-	$this->form_validation->set_rules('exp_card_member', 'exp card member', 'trim|required');
-	$this->form_validation->set_rules('created_at', 'created at', 'trim|required');
-	$this->form_validation->set_rules('dokter_id', 'dokter id', 'trim|required');
-	$this->form_validation->set_rules('diagnosis', 'diagnosis', 'trim|required');
+	// $this->form_validation->set_rules('address', 'address', 'trim|required');
+	// $this->form_validation->set_rules('dob', 'dob', 'trim|required');
+	// $this->form_validation->set_rules('place_dob', 'place dob', 'trim|required');
+	// $this->form_validation->set_rules('email', 'email', 'trim|required');
+	// $this->form_validation->set_rules('phone_number', 'phone number', 'trim|required');
+	// $this->form_validation->set_rules('image', 'image', 'trim|required');
+	// $this->form_validation->set_rules('pasien_type', 'pasien type', 'trim|required');
+	// $this->form_validation->set_rules('card_member_id', 'card member id', 'trim|required');
+	// $this->form_validation->set_rules('rm_number', 'rm number', 'trim|required');
+	// $this->form_validation->set_rules('gender', 'gender', 'trim|required');
+	// $this->form_validation->set_rules('religion', 'religion', 'trim|required');
+	// $this->form_validation->set_rules('profession', 'profession', 'trim|required');
+	// $this->form_validation->set_rules('card_type', 'card type', 'trim|required');
+	// $this->form_validation->set_rules('complaint', 'complaint', 'trim|required');
+	// $this->form_validation->set_rules('exp_card_member', 'exp card member', 'trim|required');
+	// $this->form_validation->set_rules('created_at', 'created at', 'trim|required');
+	// $this->form_validation->set_rules('dokter_id', 'dokter id', 'trim|required');
+	// $this->form_validation->set_rules('diagnosis', 'diagnosis', 'trim|required');
 
 	$this->form_validation->set_rules('id', 'id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

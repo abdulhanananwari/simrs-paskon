@@ -9,7 +9,7 @@
                         </div>
                         <div class="body">
                             <hr>
-                            <form action="<?php echo base_url()?>" method="post">
+                            <form action="<?php echo base_url()?>pasien/create_action" method="post">
                                  <div class="row clearfix">
                                     <div class="col-sm-12">
                                         <div class="card">
@@ -61,7 +61,7 @@
                                         <div class="form-group">
                                             <label>Nama</label>
                                             <div class="form-line">
-                                                <input type="text" class="form-control" placeholder="Nama" />
+                                                <input type="text" class="form-control" name="name" placeholder="Nama" />
                                             </div>
                                         </div>
                                         <div class="form-group">

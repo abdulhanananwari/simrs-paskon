@@ -84,14 +84,23 @@ class Dokter extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
-            $data = array(
-		'name' => $this->input->post('name',TRUE),
-		'spesialist' => $this->input->post('spesialist',TRUE),
-		'active' => $this->input->post('active',TRUE),
-		'image' => $this->input->post('image',TRUE),
-		'created_at' => $this->input->post('created_at',TRUE),
-	    );
-
+            $data = [
+                'name' => $this->input->post('name'),
+                'address' => $this->input->post('address'),
+                'dokter_registration_code' => $this->input->post('dokter_registration_code'),
+                'ktp' => $this->input->post('ktp'),
+                'dob' => $this->input->post('dob'),
+                'phone_number' => $this->input->post('phone_number'),
+                'mobile_number' => $this->input->post('mobile_number'),
+                'image' => $this->input->post('image'),
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+            if (isset($_FILES)) {
+            //    exit('jkghjkgh');
+                $upload = $this->upload();
+                $data['image'] = $upload;
+            }
+            exit(json_encode($data));
             $this->Dokter_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('dokter'));
@@ -158,15 +167,42 @@ class Dokter extends CI_Controller
     public function _rules() 
     {
 	$this->form_validation->set_rules('name', 'name', 'trim|required');
-	$this->form_validation->set_rules('spesialist', 'spesialist', 'trim|required');
-	$this->form_validation->set_rules('active', 'active', 'trim|required');
-	$this->form_validation->set_rules('image', 'image', 'trim|required');
-	$this->form_validation->set_rules('created_at', 'created at', 'trim|required');
-
+	
 	$this->form_validation->set_rules('id', 'id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
+    private function upload(){
+
+        // $config['upload_path'] = 'uploads/';
+        // $config['allowed_types'] = 'gif|png|jpg';
+        // $config['max_size'] = 10000;
+        // $config['encrypt_name'] = TRUE;
+
+        // $this->load->library('upload', $config);
+        // $this->upload->do_upload('image');
+        // exit(json_encode($this->upload->data()));
+        // return $this->upload->data('file_name');
+
+        $config['upload_path']          = 'uploads/';
+        $config['allowed_types']        = 'gif|jpg|png';
+        $config['max_size']             = 5000; //set max size allowed in Kilobyte
+        $config['max_width']            = 5000; // set max width image allowed
+        $config['max_height']           = 5000; // set max height allowed
+        $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+
+        if(!$this->upload->do_upload('image')) //upload and validate
+        {
+            $data['inputerror'][] = 'image';
+			$data['error_string'][] = 'Upload error: '.$this->upload->display_errors('',''); //show ajax error
+			$data['status'] = FALSE;
+			echo json_encode($data);
+			exit();
+		}
+		return $this->upload->data('file_name');
+    }
 }
 
 /* End of file Dokter.php */

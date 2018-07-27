@@ -1,84 +1,125 @@
-<div class="content-wrapper">
+<div class="contanier">
     <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12">
-                <h2 style="margin-top:0px">Dokter List</h2>
-        <div class="row" style="margin-bottom: 10px">
-            <div class="col-md-4">
-                <?php echo anchor(site_url('dokter/create'),'Create', 'class="btn btn-primary"'); ?>
-            </div>
-            <div class="col-md-4 text-center">
-                <div style="margin-top: 8px" id="message">
-                    <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
-                </div>
-            </div>
-            <div class="col-md-1 text-right">
-            </div>
-            <div class="col-md-3 text-right">
-                <form action="<?php echo site_url('dokter/index'); ?>" class="form-inline" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
-                        <span class="input-group-btn">
-                            <?php 
-                                if ($q <> '')
-                                {
-                                    ?>
-                                    <a href="<?php echo site_url('dokter'); ?>" class="btn btn-default">Reset</a>
-                                    <?php
-                                }
-                            ?>
-                          <button class="btn btn-primary" type="submit">Search</button>
-                        </span>
+        <div class="contanier-fluid">
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Inputan data dokter klinik</h2>
+                        </div>
+                        <div class="body">
+                            <hr>
+                            <form action="<?php echo base_url()?>dokter/create_action" method="post">
+                                 <div class="row clearfix">
+                                   
+                                    <div class="col-sm-12">
+                                        <h2 class="card-inside-title">Identitas Dokter</h4>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>No KTP</label>
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" placeholder="No KTP" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>No KK</label>
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" placeholder="No KK" />
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Nama</label>
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="name"  placeholder="Nama" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                        <label>Alamat</label>
+                                        <div class="form-line">
+                                            <textarea rows="4" class="form-control no-resize" name="address" placeholder="Please type what you want..."></textarea>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                         <label>Tempat</label>
+                                         <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" name="place_dob" placeholder="Tempat Lahir" />
+                                            </div>                                             
+                                         </div>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                        <label>Tanggal Lahir</label>
+                                        <div class="form-line">
+                                            <input type="text" id="date-format" name="dob" class="datepicker form-control" placeholder="Please choose a date...">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">phone_iphone</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="mobile_number" class="form-control mobile-phone-number" placeholder="Ex: +62 (000) 000-00-00">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">phone</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="phone_number" class="form-control mobile-phone-number" placeholder="Ex:(022)000-00-00">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">email</i>
+                                        </span>
+                                        <div class="form-line">
+                                            <input type="text" name="email" class="form-control email" placeholder="Ex: babangtamvan@email.com">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <label for="specialist">Spesialis</label>
+                                        <div>
+                                            <select class="form-control" name="specialist" id="specialist">
+                                                <option value="0"></option>
+                                                <option value="umum">Umum</option>
+                                                <option value="bedah">Bedah</option>
+                                                <option value="kandungan">Kandungan</option>
+                                                <option value="gigi">Gigi</option>                                           
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="image">Foto</label>
+                                        <input type="file" name="image" class="form-control">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-block btn-success ">Simpan</button>
+                            </form>                          
+                        </div>
                     </div>
-                </form>
-            </div>
-        </div>
-        <table class="table table-bordered" style="margin-bottom: 10px">
-            <tr>
-                <th>No</th>
-		<th>Name</th>
-		<th>Spesialist</th>
-		<th>Active</th>
-		<th>Image</th>
-		<th>Created At</th>
-		<th>Action</th>
-            </tr><?php
-            foreach ($dokter_data as $dokter)
-            {
-                ?>
-                <tr>
-			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $dokter->name ?></td>
-			<td><?php echo $dokter->spesialist ?></td>
-			<td><?php echo $dokter->active ?></td>
-			<td><?php echo $dokter->image ?></td>
-			<td><?php echo $dokter->created_at ?></td>
-			<td style="text-align:center" width="200px">
-				<?php 
-				echo anchor(site_url('dokter/read/'.$dokter->id),'Read'); 
-				echo ' | '; 
-				echo anchor(site_url('dokter/update/'.$dokter->id),'Update'); 
-				echo ' | '; 
-				echo anchor(site_url('dokter/delete/'.$dokter->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
-				?>
-			</td>
-		</tr>
-                <?php
-            }
-            ?>
-        </table>
-        <div class="row">
-            <div class="col-md-6">
-                <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
-	    </div>
-            <div class="col-md-6 text-right">
-                <?php echo $pagination ?>
-            </div>
-        </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
-       
+
+<script src="/assets/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/plugins/autosize/autosize.js"></script>
+<script src="/assets/js/pages/forms/basic-form-elements.js"></script>
