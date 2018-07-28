@@ -345,15 +345,16 @@ class Pasien extends CI_Controller
     }
 	public function generate($id){
 
-		// $this->load->library('htmlPdf');
-
-		$data = $this->Pasien_model->join_by_id($id);
-		// exit(json_encode($data));
-		$html = $this->load->view('generate/pdf', $data, true);
-		// exit($html);
-		$this->htmlPdf->generate($html,'contoh');
+		$this->load->library('pdf');
 		
-
+		$this->pdf->setPaper('A4', 'potrait');
+		
+		$data = $this->Pasien_model->join_by_id($id);
+		
+		$this->pdf->filename = $id.'|'.$data->pasien_name.".pdf";
+		
+		$this->pdf->load_view('generate/pdf', $data);
+		
 	}
 }
 
