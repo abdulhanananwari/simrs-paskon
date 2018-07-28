@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.21, for Linux (x86_64)
 --
--- Host: 192.168.0.43    Database: simrs_paskon
+-- Host: localhost    Database: simrs_paskon
 -- ------------------------------------------------------
--- Server version	5.7.22-0ubuntu0.16.04.1
+-- Server version	5.7.21-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -88,7 +88,7 @@ CREATE TABLE `dokter` (
   `email` varchar(45) DEFAULT NULL,
   `place_dob` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `dokter` (
 
 LOCK TABLES `dokter` WRITE;
 /*!40000 ALTER TABLE `dokter` DISABLE KEYS */;
-INSERT INTO `dokter` VALUES (2,'jj','jh',NULL,'Screenshot from 2018-04-18 22-50-18.png',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'kljlkj','kljklj',NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-26',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'r','e',NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-26',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,'jkjlkjlkjlkjlkj',NULL,NULL,NULL,'0000-00-00','',NULL,'','',NULL,'',NULL,NULL),(6,'jlkjkjkj',NULL,NULL,NULL,'2018-07-27','',NULL,'','',NULL,'',NULL,NULL),(7,'jlklkjlkjlkjlkj',NULL,NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-27','',NULL,'','',NULL,'',NULL,NULL),(8,'lkhkhjklh',NULL,NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-27','',NULL,'','',NULL,'',NULL,NULL),(9,'kjklhlkjkj',NULL,NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-27','',NULL,'','',NULL,'',NULL,NULL),(10,'abdul hanan aDASD',NULL,NULL,NULL,NULL,'batujajar',NULL,'83817520840','83817520840',NULL,'Tuesday 13 July 1993',NULL,NULL),(11,'abdul hanan aDASD',NULL,NULL,'e8c7c07e94eaacde54e61ca4b78aa51f.PNG','2018-07-27','',NULL,' 83817520840','83817520840','','Tuesday 13 July 1993',NULL,NULL);
+INSERT INTO `dokter` VALUES (2,'jj','jh',NULL,'Screenshot from 2018-04-18 22-50-18.png',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'kljlkj','kljklj',NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-26',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'r','e',NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-26',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,'jkjlkjlkjlkjlkj',NULL,NULL,NULL,'0000-00-00','',NULL,'','',NULL,'',NULL,NULL),(6,'jlkjkjkj',NULL,NULL,NULL,'2018-07-27','',NULL,'','',NULL,'',NULL,NULL),(7,'jlklkjlkjlkjlkj',NULL,NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-27','',NULL,'','',NULL,'',NULL,NULL),(8,'lkhkhjklh',NULL,NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-27','',NULL,'','',NULL,'',NULL,NULL),(9,'kjklhlkjkj',NULL,NULL,'Screenshot from 2018-04-18 22-50-18.png','2018-07-27','',NULL,'','',NULL,'',NULL,NULL),(10,'abdul hanan aDASD',NULL,NULL,NULL,NULL,'batujajar',NULL,'83817520840','83817520840',NULL,'Tuesday 13 July 1993',NULL,NULL),(11,'abdul hanan aDASD',NULL,NULL,'e8c7c07e94eaacde54e61ca4b78aa51f.PNG','2018-07-27','',NULL,' 83817520840','83817520840','','Tuesday 13 July 1993',NULL,NULL),(12,'babang',NULL,NULL,'83c0a2153ad11ad5e76575ea28530197.png','2018-07-27','wakandah',NULL,'3434','87878','787878','Saturday 21 July 2018',NULL,NULL);
 /*!40000 ALTER TABLE `dokter` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,6 +144,30 @@ LOCK TABLES `pasien` WRITE;
 /*!40000 ALTER TABLE `pasien` DISABLE KEYS */;
 INSERT INTO `pasien` VALUES (1,'jkhjkhkjhkjhkjhk',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2018-07-27 06:09:49',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `pasien` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `poliklinik`
+--
+
+DROP TABLE IF EXISTS `poliklinik`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `poliklinik` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `poliklinik`
+--
+
+LOCK TABLES `poliklinik` WRITE;
+/*!40000 ALTER TABLE `poliklinik` DISABLE KEYS */;
+INSERT INTO `poliklinik` VALUES (1,'anak');
+/*!40000 ALTER TABLE `poliklinik` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -207,4 +231,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-27 11:25:35
+-- Dump completed on 2018-07-28  6:35:04

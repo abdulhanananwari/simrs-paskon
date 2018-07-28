@@ -19,7 +19,7 @@
                                         <div class="form-group">
                                             <label>No KTP</label>
                                             <div class="form-line">
-                                                <input type="text" class="form-control" placeholder="No KTP" />
+                                                <input type="text" name="ktp" class="form-control" placeholder="No KTP" />
                                             </div>
                                         </div>
                                     </div>
@@ -104,6 +104,19 @@
                                                 <option value="gigi">Gigi</option>                                           
                                             </select>
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Poliklinik</label>
+                                        <select name="poli_id" class="form-control">
+                                            <option value="0" selected="selected">
+                                                Pilih Poli
+                                            </option>
+                                            <?php foreach ($polikliniks as $v) { ?>
+                                                <option value="<?php echo $v->id; ?>">
+                                                    <?php echo $v->name; ?>
+                                                </option>    
+                                            <?php } ?>                          
+                                        </select>
                                     </div>
                                     <div class="input-group">
                                         <label for="image">Foto</label>

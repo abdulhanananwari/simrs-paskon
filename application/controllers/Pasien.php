@@ -8,7 +8,8 @@ class Pasien extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Pasien_model');
+		$this->load->model('Pasien_model');
+		$this->load->model('Dokter_model');
         $this->load->library('form_validation');
     }
 	public function index() {
@@ -58,30 +59,32 @@ class Pasien extends CI_Controller
 
     public function create() 
     {
-        $data = array(
-            'button' => 'Create',
-            'action' => site_url('pasien/create_action'),
-	    'id' => set_value('id'),
-	    'name' => set_value('name'),
-	    'address' => set_value('address'),
-	    'dob' => set_value('dob'),
-	    'place_dob' => set_value('place_dob'),
-	    'email' => set_value('email'),
-	    'phone_number' => set_value('phone_number'),
-	    'image' => set_value('image'),
-	    'pasien_type' => set_value('pasien_type'),
-	    'card_member_id' => set_value('card_member_id'),
-	    'rm_number' => set_value('rm_number'),
-	    'gender' => set_value('gender'),
-	    'religion' => set_value('religion'),
-	    'profession' => set_value('profession'),
-	    'card_type' => set_value('card_type'),
-	    'complaint' => set_value('complaint'),
-	    'exp_card_member' => set_value('exp_card_member'),
-	    'created_at' => set_value('created_at'),
-	    'dokter_id' => set_value('dokter_id'),
-	    'diagnosis' => set_value('diagnosis'),
-	);
+    //     $data = array(
+    //         'button' => 'Create',
+    //         'action' => site_url('pasien/create_action'),
+	//     'id' => set_value('id'),
+	//     'name' => set_value('name'),
+	//     'address' => set_value('address'),
+	//     'dob' => set_value('dob'),
+	//     'place_dob' => set_value('place_dob'),
+	//     'email' => set_value('email'),
+	//     'phone_number' => set_value('phone_number'),
+	//     'image' => set_value('image'),
+	//     'pasien_type' => set_value('pasien_type'),
+	//     'card_member_id' => set_value('card_member_id'),
+	//     'rm_number' => set_value('rm_number'),
+	//     'gender' => set_value('gender'),
+	//     'religion' => set_value('religion'),
+	//     'profession' => set_value('profession'),
+	//     'card_type' => set_value('card_type'),
+	//     'complaint' => set_value('complaint'),
+	//     'exp_card_member' => set_value('exp_card_member'),
+	//     'created_at' => set_value('created_at'),
+	//     'dokter_id' => set_value('dokter_id'),
+	//     'diagnosis' => set_value('diagnosis'),
+	// );
+		$data['dokters'] = $this->Dokter_model->get_all();
+		
         $this->template->load('template','pasien/pasien_form', $data);
     }
     
@@ -203,7 +206,38 @@ class Pasien extends CI_Controller
             redirect(site_url('pasien'));
         }
     }
+	public function list()
+    {
+       $this->load->database();
+       if(!empty($this->input->get("search"))){
+          $this->db->like('name', $this->input->get("search"));
+       }
+    
+       $json = array();
+       foreach ($this->db->get("pasien")->result() as $p) {
 
+
+            $row = array();
+            $row[] = $p->id;                    
+            $row[] = $p->name;
+			$row[] = $p->address;
+			$row[] = $p->phone_number;
+
+            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)"  title="Edit" onclick="edit_category('."'".$p->id."'".')"><i class="material-icons">edit</i></a>
+            <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_category('."'".$p->id."'".')"><i class="material-icons">delete_forever</i></a>';
+            
+            $json[] = $row;
+       }                   
+       $data['aaData'] = $json;
+       $data['success'] = true;
+       
+       echo json_encode($data);
+    }
+    
+    public function get($id){
+        $query = $this->Pasien_model->get_by_id($id);
+        echo json_encode($query);
+    }
     public function _rules() 
     {
 	$this->form_validation->set_rules('name', 'name', 'trim|required');

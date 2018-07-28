@@ -30,9 +30,15 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Dokter</label>
-                                                    <select class="form-control">
-                                                        <option></option>
-                                                        <option></option>
+                                                    <select name="dokter_id" class="form-control">
+                                                        <option value="0" selected="selected">
+                                                            Pilih Dokter
+                                                        </option>
+                                                        <?php foreach ($dokters as $v) { ?>
+                                                            <option value="<?php echo $v->id; ?>">
+                                                                <?php echo $v->name; ?>
+                                                            </option>    
+                                                        <?php } ?>                          
                                                     </select>
                                                 </div>
                                             </div>
