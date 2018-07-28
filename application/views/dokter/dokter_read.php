@@ -15,11 +15,13 @@
                                        <div class="body">
                                            <div class="row">
                                            <div class="col-xs-3">
-                                                <?php
-                                                    if(isset($image)){
-                                                        echo '<img src="/uploads/'.$image.'" class="img-resopnsive" style="width:250px;height:auto;!important;" >';
-                                                    }
+                                                <?php 
+                                                    $fileimage = base_url()."uploads/".$image;
+                                                    $img = base_url()."assets/images/not-image.png";                  
+                                                    if(file_exists($fileimage) == true && $image != null || $image != "")
+                                                        $img = $fileimage;                              
                                                 ?>
+                                                <img src="<?php echo $img;?>" class="img-responsive" style="width:250;height:auto;">
                                             </div>
                                            </div>
                                             

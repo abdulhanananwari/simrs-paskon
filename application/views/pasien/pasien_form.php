@@ -105,7 +105,7 @@
                                                         <div class="form-group">
                                                             <label>Tanggal Lahir</label>
                                                             <div class="form-line">
-                                                                <input type="text" id="date-format" name="dob" class="datepicker form-control" placeholder="Please choose a date...">
+                                                                <input type="text" id="date" name="dob" class="datepicker form-control" placeholder="Please choose a date...">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -182,10 +182,7 @@
 <script src="/assets/js/pages/forms/basic-form-elements.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-          $('.datepicker').bootstrapMaterialDatePicker
-            ({
-                format: 'DD-MMMM-YYYY'
-            });
+        $('#date').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
     })
   
 </script>
