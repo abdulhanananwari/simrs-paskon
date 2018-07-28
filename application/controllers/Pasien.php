@@ -304,7 +304,9 @@ class Pasien extends CI_Controller
         xlsEOF();
         exit();
     }
-
+	public function generate(){
+		$this->load->library('htmlPdf');
+	}
 }
 
 /* End of file Pasien.php */
