@@ -44,6 +44,9 @@ $(document).ready(function(){
 function edit_category(id){
     window.location.href= "<?php echo base_url()?>pasien/read/" + id
 }
+function generate_pdf(id){
+    window.location.href= "<?php echo base_url()?>pasien/generate/" + id
+}
 function delete_category(id){
     if(confirm('Yakin mau hapus produk ini?')){
         // ajax delete data to database

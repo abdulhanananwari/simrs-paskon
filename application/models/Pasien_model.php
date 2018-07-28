@@ -28,7 +28,16 @@ class Pasien_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+    function join_by_id($id){
+        $this->db->select('*');
+        $this->db->from('pasien');
+        $this->db->join('dokter','pasien.dokter_id=dokter.id');
+        $this->db->join('poliklinik','pasien.poliklinik_id=poliklinik.id');
+        $this->db->join('category','category_id=category.id');
+        $this->db->where('pasien.id',$id);
+        $query = $this->db->get();
+        return $query->result();
+    }
     // get total rows
     function total_rows($q = NULL) {
         $this->db->like('id', $q);

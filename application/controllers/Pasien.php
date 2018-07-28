@@ -10,6 +10,8 @@ class Pasien extends CI_Controller
         parent::__construct();
 		$this->load->model('Pasien_model');
 		$this->load->model('Dokter_model');
+		$this->load->model('Poliklinik_model');
+		$this->load->model('Category_model');
         $this->load->library('form_validation');
     }
 	public function index() {
@@ -59,32 +61,34 @@ class Pasien extends CI_Controller
 
     public function create() 
     {
-    //     $data = array(
-    //         'button' => 'Create',
-    //         'action' => site_url('pasien/create_action'),
-	//     'id' => set_value('id'),
-	//     'name' => set_value('name'),
-	//     'address' => set_value('address'),
-	//     'dob' => set_value('dob'),
-	//     'place_dob' => set_value('place_dob'),
-	//     'email' => set_value('email'),
-	//     'phone_number' => set_value('phone_number'),
-	//     'image' => set_value('image'),
-	//     'pasien_type' => set_value('pasien_type'),
-	//     'card_member_id' => set_value('card_member_id'),
-	//     'rm_number' => set_value('rm_number'),
-	//     'gender' => set_value('gender'),
-	//     'religion' => set_value('religion'),
-	//     'profession' => set_value('profession'),
-	//     'card_type' => set_value('card_type'),
-	//     'complaint' => set_value('complaint'),
-	//     'exp_card_member' => set_value('exp_card_member'),
-	//     'created_at' => set_value('created_at'),
-	//     'dokter_id' => set_value('dokter_id'),
-	//     'diagnosis' => set_value('diagnosis'),
-	// );
+        $data = array(
+            'button' => 'Create',
+            'action' => site_url('pasien/create_action'),
+	    'id' => set_value('id'),
+	    'name' => set_value('name'),
+	    'address' => set_value('address'),
+	    'dob' => set_value('dob'),
+	    'place_dob' => set_value('place_dob'),
+	    'email' => set_value('email'),
+	    'phone_number' => set_value('phone_number'),
+	    'image' => set_value('image'),
+	    'pasien_type' => set_value('pasien_type'),
+	    'card_member_id' => set_value('card_member_id'),
+	    'rm_number' => set_value('rm_number'),
+	    'gender' => set_value('gender'),
+	    'religion' => set_value('religion'),
+	    'profession' => set_value('profession'),
+	    'card_type' => set_value('card_type'),
+	    'complaint' => set_value('complaint'),
+	    'exp_card_member' => set_value('exp_card_member'),
+	    'created_at' => set_value('created_at'),
+	    'dokter_id' => set_value('dokter_id'),
+	    'diagnosis' => set_value('diagnosis'),
+	);
 		$data['dokters'] = $this->Dokter_model->get_all();
-		
+		$data['polikliniks'] = $this->Poliklinik_model->get_all();
+		$data['categories'] = $this->Category_model->get_all();
+
         $this->template->load('template','pasien/pasien_form', $data);
     }
     
@@ -112,6 +116,8 @@ class Pasien extends CI_Controller
 					'complaint' => $this->input->post('complaint',TRUE),
 					'exp_card_member' => $this->input->post('exp_card_member',TRUE),
 					'dokter_id' => $this->input->post('dokter_id',TRUE),
+					'poliklinik_id' => $this->input->post('poliklinik_id',TRUE),
+					'category_id' => $this->input->post('category_id',TRUE),
 					'diagnosis' => $this->input->post('diagnosis',TRUE),
 					'created_at' => date('Y-m-d H:i:s')
 			];
@@ -121,7 +127,38 @@ class Pasien extends CI_Controller
             redirect(site_url('pasien'));
         }
     }
+	public function list()
+    {
+       $this->load->database();
+       if(!empty($this->input->get("search"))){
+          $this->db->like('name', $this->input->get("search"));
+       }
     
+       $json = array();
+       foreach ($this->db->get("pasien")->result() as $p) {
+
+
+            $row = array();
+            $row[] = $p->id;                    
+			$row[] = $p->name;
+			$row[] = $p->address;
+			$row[] = $p->phone_number;
+			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)"  title="Edit" onclick="edit_category('."'".$p->id."'".')"><i class="material-icons">edit</i></a>
+			<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_category('."'".$p->id."'".')"><i class="material-icons">delete_forever</i></a>
+			<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Cetak" onclick="generate_pdf('."'".$p->id."'".')"><i class="material-icons">print</i></a>';
+            
+            $json[] = $row;
+       }                   
+       $data['aaData'] = $json;
+       $data['success'] = true;
+       
+       echo json_encode($data);
+    }
+    
+    public function get($id){
+        $query = $this->Pasien_model->get_by_id($id);
+        echo json_encode($query);
+    }
     public function update($id) 
     {
         $row = $this->Pasien_model->get_by_id($id);
@@ -206,38 +243,7 @@ class Pasien extends CI_Controller
             redirect(site_url('pasien'));
         }
     }
-	public function list()
-    {
-       $this->load->database();
-       if(!empty($this->input->get("search"))){
-          $this->db->like('name', $this->input->get("search"));
-       }
-    
-       $json = array();
-       foreach ($this->db->get("pasien")->result() as $p) {
 
-
-            $row = array();
-            $row[] = $p->id;                    
-            $row[] = $p->name;
-			$row[] = $p->address;
-			$row[] = $p->phone_number;
-
-            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)"  title="Edit" onclick="edit_category('."'".$p->id."'".')"><i class="material-icons">edit</i></a>
-            <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_category('."'".$p->id."'".')"><i class="material-icons">delete_forever</i></a>';
-            
-            $json[] = $row;
-       }                   
-       $data['aaData'] = $json;
-       $data['success'] = true;
-       
-       echo json_encode($data);
-    }
-    
-    public function get($id){
-        $query = $this->Pasien_model->get_by_id($id);
-        echo json_encode($query);
-    }
     public function _rules() 
     {
 	$this->form_validation->set_rules('name', 'name', 'trim|required');
@@ -289,7 +295,6 @@ class Pasien extends CI_Controller
 	xlsWriteLabel($tablehead, $kolomhead++, "Name");
 	xlsWriteLabel($tablehead, $kolomhead++, "Address");
 	xlsWriteLabel($tablehead, $kolomhead++, "Dob");
-	xlsWriteLabel($tablehead, $kolomhead++, "Place Dob");
 	xlsWriteLabel($tablehead, $kolomhead++, "Email");
 	xlsWriteLabel($tablehead, $kolomhead++, "Phone Number");
 	xlsWriteLabel($tablehead, $kolomhead++, "Image");
@@ -338,8 +343,17 @@ class Pasien extends CI_Controller
         xlsEOF();
         exit();
     }
-	public function generate(){
-		$this->load->library('htmlPdf');
+	public function generate($id){
+
+		// $this->load->library('htmlPdf');
+
+		$data = $this->Pasien_model->join_by_id($id);
+		// exit(json_encode($data));
+		$html = $this->load->view('generate/pdf', $data, true);
+		// exit($html);
+		$this->htmlPdf->generate($html,'contoh');
+		
+
 	}
 }
 
